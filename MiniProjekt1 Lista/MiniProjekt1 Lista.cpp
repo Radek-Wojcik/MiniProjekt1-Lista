@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <cstdlib>
 
 using namespace std;
 
@@ -37,11 +38,12 @@ public:
     }
 
     // Metoda dodająca element
-    void push_back(const T& value);
-    if (length == capacity) {                            // Sprawdzenie, czy tablica jest pełna
-        resize();
+    void push_back(const T& value) {
+        if (length == capacity) {                            // Sprawdzenie, czy tablica jest pełna
+            resize();
+        }
+        array[length++] = value;                             // Dodanie elementu i zwiększenie licznika
     }
-    array[length++] = value;                             // Dodanie elementu i zwiększenie licznika
 
     // Zabezpieczenie przed odowłaniem do elementu spoza zakresu
     T& operator[](int index) {
@@ -52,13 +54,33 @@ public:
         return array[index];
     }
 
-    // Deklaracja metod pomocniczych
-    int size() const;
-    int getCapacity() const;
+    // Metoda zwracająca liczbę dodanych elementów
+    int size() const {
+        return length;
+    }
+
+    // Metoda zwracająca aktualną pojemność tablicy
+    int getCapacity() const {
+        return capacity;
+    }
 };
 
+/* //Test
 int main() {
-    // Testowanie poprawności inicjalizacji i zwolnienia pamięci
-    DynamicArray<int> arr(5);
+    
+    DynamicArray<int> arr(5); // Początkowy rozmiar
+    
+    for (int i = 0; i < 10000; ++i) {
+        arr.push_back(i);
+        cout << "Aktualny rozmiar : " << arr.size() << " | Aktualna pojemnosc : " << arr.getCapacity() << endl;
+    }
+    
+    cout << "Zawartosc tablicy: ";
+    for (int i = 0; i < arr.size(); ++i) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+
     return 0;
 }
+*/
